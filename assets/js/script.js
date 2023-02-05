@@ -1,8 +1,9 @@
+// Declaration of global variables
 let cityGeo = { lon: '', lat: ''}
 let cityName = '';
 
 
-// Get the geographical coordinates information based on the city name in the input-form 
+// Function to get the geographical coordinates information based on the city name in the input-form 
 function getGeoInfo() {
     // Build the queryURL from the input-form
     let geocodingURL = 'http://api.openweathermap.org/geo/1.0/direct?';
@@ -23,7 +24,7 @@ function getGeoInfo() {
     });
 }
 
-// Get current 
+// Function to get current weather and display it on the webpage
 function getCurrentWeather() {
     // Build the queryURL based on the lon and lat data 
     let queryURL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -33,13 +34,13 @@ function getCurrentWeather() {
     queryParams.lat = cityGeo.lat;
     queryParams.lon = cityGeo.lon;
     queryURL += $.param(queryParams);
-    console.log(queryURL);
+    // console.log(queryURL);
 
     $.ajax({
         url: queryURL,
         method: 'GET'
     }).then(function(response){
-        console.log(response);
+        // console.log(response);
         //Empty the previous weather data
         $('#today').empty();
         $('#forecast').empty();
@@ -59,7 +60,52 @@ function getCurrentWeather() {
     })
 }
 
+// Function to get weather forecast for a city and display on the webpage
+function getForecastWeather() {
+    // Build the queryURL based on the lon and lat data 
+    let queryURL = 'http://api.openweathermap.org/data/2.5/forecast?';
+    let queryParams = {
+    'appid': '6d15a98c4f1e6bf4dce53c48165b4e99'
+    }
+    queryParams.lat = cityGeo.lat;
+    queryParams.lon = cityGeo.lon;
+    queryURL += $.param(queryParams);
+    console.log(queryURL);
 
+    $.ajax({
+        url: queryURL,
+        method: 'GET'
+    }).then(function(response){
+        console.log(response);
+        // Delcaration variables to store the current date and current hour slot by 3-hour period
+        
+        let currentHour = moment().format('HH');
+        let hourSlot = Math.floor(currentHour/3);
+        console.log(hourSlot);
+
+        // Use 'For loop' to create elements and show the forecasts to the webpage
+        for(let i = 0; i < 5; i++) {
+            let slotNumber = hourSlot + i * 8;
+            console.log('The loop is working now');
+            // Declaration of variables to store weather data
+            let tempData = (response.list[slotNumber].main.temp -273.15).toFixed(2);
+            let windData = (response.list[slotNumber].wind.speed * 2.23694).toFixed(1);
+            console.log(tempData + "   " + windData);
+
+            let showDate = moment().add('days', i+1).format('DD/MM/YYYY');
+            console.log(showDate);
+            const cardDiv = $('<div>').addClass('card');
+            const showDateEl= $('<h5>').text(showDate);
+            const tempDataEl = $('<p>').text('Temp: ' + tempData + '℃');
+            const windDataEl = $('<p>').text('Wind: ' + windData + ' KPH');
+            const humidityEl = $('<p>').text('Humidity: ' + response.list[slotNumber].main.humidity + ' %')
+            
+            cardDiv.append(showDateEl, tempDataEl, windDataEl, humidityEl);
+            $('#forecast').append(cardDiv);
+        }
+    })
+
+}
 
 
 
@@ -69,8 +115,9 @@ $('#search-button').on('click', function(event){
     
     cityName = $('#search-input').val().trim();
     getGeoInfo();
-    console.log(cityGeo);
     getCurrentWeather();
+    getForecastWeather();
     
     
 })
+
