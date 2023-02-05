@@ -89,6 +89,9 @@ function getForecastWeather() {
         let currentHour = moment().format('HH');
         let hourSlot = Math.floor(currentHour/3);
         console.log(hourSlot);
+        
+        const forecastTitleEl = $('<h2>').text('5-day Forecast:').attr('class', 'col-12');
+        $('#forecast').append(forecastTitleEl);
 
         // Use 'For loop' to create elements and show the forecasts to the webpage
         for(let i = 0; i < 5; i++) {
