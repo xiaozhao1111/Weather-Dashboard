@@ -20,10 +20,15 @@ function getGeoInfo() {
     $.ajax({
         url: geocodingURL,
         method: 'GET',
-    }).then(function(response){
+    })
+    .then(function(response){
         cityGeo.lon = response[0].lon,
         cityGeo.lat = response[0].lat
-    });
+    })
+    .fail(function(){
+        alert('No response from the server! Please try again!')
+    })
+    ;
 }
 
 // Function to get current weather and display it on the webpage
@@ -41,7 +46,8 @@ function getCurrentWeather() {
     $.ajax({
         url: queryURL,
         method: 'GET'
-    }).then(function(response){
+    })
+    .then(function(response){
         // console.log(response);
         //Empty the previous weather data
         $('#today').empty();
@@ -63,7 +69,9 @@ function getCurrentWeather() {
 
         todayTitle.append(iconEl);
         $('#today').append(todayTitle, todayTemp,todayWind, todayHumidity)
+        $('#today').addClass('border border-dark p-1');
     })
+    
 }
 
 // Function to get weather forecast for a city and display on the webpage
