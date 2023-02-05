@@ -1,3 +1,5 @@
+
+
 // Declaration of global variables
 let cityGeo = { lon: '', lat: ''}
 let cityName = '';
@@ -58,7 +60,7 @@ function getCurrentWeather() {
         const todayTemp = $('<p>').text('Temp: ' + tempData + '℃');
         const todayWind = $('<p>').text('Wind: ' + windData + ' KPH')
         const todayHumidity = $('<p>').text('Humidity: ' + response.main.humidity + '%');
-        
+
         todayTitle.append(iconEl);
         $('#today').append(todayTitle, todayTemp,todayWind, todayHumidity)
     })
@@ -83,6 +85,7 @@ function getForecastWeather() {
         console.log(response);
         // Delcaration variables to store the current date and current hour slot by 3-hour period
         
+
         let currentHour = moment().format('HH');
         let hourSlot = Math.floor(currentHour/3);
         console.log(hourSlot);
@@ -101,7 +104,7 @@ function getForecastWeather() {
 
             let showDate = moment().add('days', i+1).format('DD/MM/YYYY');
             console.log(showDate);
-            const cardDiv = $('<div>').addClass('card');
+            const cardDiv = $('<div>').addClass('card col-2 bg-info');
             const showDateEl= $('<h5>').text(showDate);
             const iconEl = $('<img>').attr('src', iconURL);
             const tempDataEl = $('<p>').text('Temp: ' + tempData + '℃');
@@ -111,21 +114,31 @@ function getForecastWeather() {
             cardDiv.append(showDateEl, iconEl, tempDataEl, windDataEl, humidityEl);
             $('#forecast').append(cardDiv);
         }
+        recordSearch();
     })
+}
 
+function recordSearch() {
+    if (cityName != '') {
+        const historyEl = $('<button>').text(cityName);
+        historyEl.attr({type: 'button', class: 'btn btn-secondary btn-lg btn-block'});
+        $('#history').prepend(historyEl);
+    }
 }
 
 
 
-
-$('#search-button').on('click', function(event){
+$(document).ready( function(){
+    $('#search-button').on('click', function(event){
     event.preventDefault();
-    
     cityName = $('#search-input').val().trim();
     getGeoInfo();
     getCurrentWeather();
     getForecastWeather();
-    
-    
+    })
+
+
 })
+
+
 
