@@ -50,12 +50,16 @@ function getCurrentWeather() {
         let currentDate = moment().format('DD/MM/YYYY')
         let tempData = (response.main.temp - 273.15).toFixed(2);
         let windData = (response.wind.speed * 2.23694).toFixed(1);
+        let weatherIconId = response.weather[0].icon;
+        let iconURL = 'http://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png';
 
         const todayTitle = $('<h2>').text(cityName + ' (' + currentDate + ')');
+        const iconEl = $("<img>").attr('src', iconURL);
         const todayTemp = $('<p>').text('Temp: ' + tempData + '℃');
         const todayWind = $('<p>').text('Wind: ' + windData + ' KPH')
         const todayHumidity = $('<p>').text('Humidity: ' + response.main.humidity + '%');
-
+        
+        todayTitle.append(iconEl);
         $('#today').append(todayTitle, todayTemp,todayWind, todayHumidity)
     })
 }
@@ -90,17 +94,21 @@ function getForecastWeather() {
             // Declaration of variables to store weather data
             let tempData = (response.list[slotNumber].main.temp -273.15).toFixed(2);
             let windData = (response.list[slotNumber].wind.speed * 2.23694).toFixed(1);
+            let weatherIconId = response.list[slotNumber].weather[0].icon;
+            let iconURL = 'http://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png'
             console.log(tempData + "   " + windData);
+            console.log(iconURL);
 
             let showDate = moment().add('days', i+1).format('DD/MM/YYYY');
             console.log(showDate);
             const cardDiv = $('<div>').addClass('card');
             const showDateEl= $('<h5>').text(showDate);
+            const iconEl = $('<img>').attr('src', iconURL);
             const tempDataEl = $('<p>').text('Temp: ' + tempData + '℃');
             const windDataEl = $('<p>').text('Wind: ' + windData + ' KPH');
             const humidityEl = $('<p>').text('Humidity: ' + response.list[slotNumber].main.humidity + ' %')
             
-            cardDiv.append(showDateEl, tempDataEl, windDataEl, humidityEl);
+            cardDiv.append(showDateEl, iconEl, tempDataEl, windDataEl, humidityEl);
             $('#forecast').append(cardDiv);
         }
     })
