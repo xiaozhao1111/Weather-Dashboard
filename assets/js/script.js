@@ -4,7 +4,7 @@ let cityName = '';
 
 // Function to build the URL for the geocoding API
 function buildGeoURL(cityName) {
-    let geocodingURL = 'http://api.openweathermap.org/geo/1.0/direct?';
+    let geocodingURL = 'https://api.openweathermap.org/geo/1.0/direct?';
     let geocodingParams = {'appid': '6d15a98c4f1e6bf4dce53c48165b4e99'};
     geocodingParams.q = cityName;
     geocodingURL += $.param(geocodingParams);
@@ -38,7 +38,7 @@ function getCurrentWeather(geoData) {
         let tempData = (response.main.temp - 273.15).toFixed(2);
         let windData = (response.wind.speed * 2.23694).toFixed(1);
         let weatherIconId = response.weather[0].icon;
-        let iconURL = 'http://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png';
+        let iconURL = 'https://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png';
 
         const todayTitle = $('<h2>').text(geoData[0].name + ' (' + currentDate + ')');
         const iconEl = $("<img>").attr('src', iconURL);
@@ -56,7 +56,7 @@ function getCurrentWeather(geoData) {
 // Function to get weather forecast for a city and display on the webpage
 function getForecastWeather(geoData) {
     // Build the queryURL based on the lon and lat data 
-    let queryURL = 'http://api.openweathermap.org/data/2.5/forecast?';
+    let queryURL = 'https://api.openweathermap.org/data/2.5/forecast?';
     let queryParams = {
     'appid': '6d15a98c4f1e6bf4dce53c48165b4e99'
     }
@@ -91,7 +91,7 @@ function getForecastWeather(geoData) {
             let tempData = (response.list[slotNumber].main.temp -273.15).toFixed(2);
             let windData = (response.list[slotNumber].wind.speed * 2.23694).toFixed(1);
             let weatherIconId = response.list[slotNumber].weather[0].icon;
-            let iconURL = 'http://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png'
+            let iconURL = 'https://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png'
             // console.log(tempData + "   " + windData);
             // console.log(iconURL);
 
