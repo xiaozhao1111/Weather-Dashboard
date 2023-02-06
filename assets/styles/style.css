@@ -1,7 +1,4 @@
-body {
-    padding: 10px;
-    margin: 10px;
-}
+
 .weather-header {
     background: rgb(150, 161, 249);
         background: linear-gradient(90deg, rgba(150, 161, 249, 1) 0%, rgba(6, 45, 182, 1) 100%);
