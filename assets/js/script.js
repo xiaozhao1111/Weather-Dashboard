@@ -40,7 +40,7 @@ function getCurrentWeather(geoData) {
         let weatherIconId = response.weather[0].icon;
         let iconURL = 'http://openweathermap.org/img/wn/'+ weatherIconId + '@2x.png';
 
-        const todayTitle = $('<h2>').text(cityName + ' (' + currentDate + ')');
+        const todayTitle = $('<h2>').text(geoData[0].name + ' (' + currentDate + ')');
         const iconEl = $("<img>").attr('src', iconURL);
         const todayTemp = $('<p>').text('Temp: ' + tempData + '℃');
         const todayWind = $('<p>').text('Wind: ' + windData + ' KPH')
@@ -79,7 +79,7 @@ function getForecastWeather(geoData) {
         let currentHour = moment().format('HH');
         let hourSlot = Math.floor(currentHour/3);
         
-        const forecastTitleEl = $('<h2>').text('5-day Forecast:').attr('class', 'col-12');
+        const forecastTitleEl = $('<h2>').text('5-day Forecast:').attr('class', 'col-12', 'mt-3');
         $('#forecast').append(forecastTitleEl);
 
         // Use 'For loop' to create elements and show the forecasts to the webpage
