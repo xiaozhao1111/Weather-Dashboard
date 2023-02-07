@@ -26,7 +26,7 @@
           Search for a City:
         </h2>
         <form id="search-form" class="form">
-          <div class="form-inline form-group">
+          <div class="form-group">
             <div class="input-group">
               <input class="form-input weather-search mr-2 col-12" type="text" id="search-input" placeholder="London"
                 aria-labelledby="form-heading" aria-controls="today forecast" />
@@ -34,11 +34,12 @@
                 <button type="submit" class="btn search-button btn-block btn-primary col-12" id="search-button" aria-label="submit search">
                   Search
                 </button>
-                <hr class="hr weather-hr" />
               </div>
             </div>
           </div>
         </form>
+        <!-- Add a 'horizontal rule' between the search-form and search history -->
+        <div><hr></div>
         <div class="list-group" id="history"></div>
       </aside>
 

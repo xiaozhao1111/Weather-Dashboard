@@ -15,10 +15,9 @@
     color: rgb(149, 230, 19);
 }
 
-.weather-hr {
-    position: relative;
-    top: 20px;
-    border: none;
-    height: 5px;
-    background: black;
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

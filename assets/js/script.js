@@ -97,7 +97,7 @@ function getForecastWeather(geoData) {
 
             let showDate = moment().add('days', i+1).format('DD/MM/YYYY');
             // console.log(showDate);
-            const cardDiv = $('<div>').addClass('card col-2 bg-info');
+            const cardDiv = $('<div>').addClass('card col-10 col-sm-2 bg-info m-2');
             const showDateEl= $('<h5>').text(showDate);
             const iconEl = $('<img>').attr('src', iconURL);
             const tempDataEl = $('<p>').text('Temp: ' + tempData + '℃');
