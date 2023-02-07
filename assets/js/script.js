@@ -112,21 +112,21 @@ function getForecastWeather(geoData) {
 
 // function to record the search history
 function recordSearch(geoData) {
-    console.log('This is the function to record the search history.');
+    // console.log('This is the function to record the search history.');
     let cityArr = JSON.parse(localStorage.getItem('cityHistory'));
     if (cityArr === null) {
         cityArr = [];
         cityArr.unshift(geoData[0].name);
         localStorage.setItem('cityHistory', JSON.stringify(cityArr));
-        console.log('No search history.');
+        // console.log('No search history.');
         const historyEl = $('<button>').text(geoData[0].name);
         historyEl.attr({type: 'button', class: 'btn btn-secondary btn-lg btn-block'});
         $('#history').prepend(historyEl);
         
     } else if (cityArr.includes(geoData[0].name)) {
-        console.log(('This city is in the search history'));
+        // console.log(('This city is in the search history'));
     } else {
-        console.log(('This is a new city'));
+        // console.log(('This is a new city'));
         cityArr.unshift(geoData[0].name);
         localStorage.setItem('cityHistory', JSON.stringify(cityArr));
         const historyEl = $('<button>').text(geoData[0].name);
@@ -137,15 +137,15 @@ function recordSearch(geoData) {
 
 // function to reset the start page
 function resetPage() {
-    console.log('This is the reset page function');
+    // console.log('This is the reset page function');
     // empty the current and forecast weather info
     $('#today').empty();
     $('#forecast').empty();
 
     let cityArr = JSON.parse(localStorage.getItem('cityHistory'));
-    console.log(cityArr);
+    // console.log(cityArr);
     if (cityArr != null) {
-        console.log('City array is not empty');
+        // console.log('City array is not empty');
         cityArr.forEach(cityName => {
             const historyEl = $('<button>').text(cityName);
             historyEl.attr({type: 'button', class: 'btn btn-secondary btn-lg btn-block'});
@@ -180,11 +180,14 @@ $(document).ready( function(){
             getForecastWeather(geoData);
             recordSearch(geoData);
         })
+        .fail(function() {
+            alert('Sorry, the city is not found. Please check your input or try another city!')
+        })
     })
     // Add event listener to the history buttons.
     $('#history').on('click', 'button', function(event){
         event.preventDefault();
-        console.log(event.target.innerText);
+        // console.log(event.target.innerText);
         cityName = event.target.innerText.trim();
         let queryGeoURL = buildGeoURL(cityName);
 
