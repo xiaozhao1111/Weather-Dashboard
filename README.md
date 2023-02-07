@@ -16,6 +16,8 @@ The Weather Dashboard can search the current and 5-day forecast weather informat
 
 * The user can click the history buttons for a quick search of the recorded city. The current and future weather conditions will be displayed.
 
+* If the input city name is not found on the Weather API server, the webpage will alert the user.
+
 
 ## Deployment
 Here is the screenshot of the application.
